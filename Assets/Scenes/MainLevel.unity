@@ -574,6 +574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MazeGenerator
   _mazeCellPrefab: {fileID: 1201647503664600569, guid: 04fa7c41cdc411046b569e8c9cd6d6fb, type: 3}
+  _straightLineMaterial: {fileID: 2100000, guid: 4f359ef7f2a32844893724c2986ecc40, type: 2}
   _mazeWidth: 20
   _mazeLength: 20
 --- !u!4 &838774911
