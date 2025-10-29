@@ -20,7 +20,7 @@ public class MazeCell : MonoBehaviour
         this.y = y;
     }
 
-    private void Start() {
+    private void Awake() {
         floorRenderer = _floor.GetComponentInChildren<MeshRenderer>();
     }
 
@@ -40,6 +40,11 @@ public class MazeCell : MonoBehaviour
     public void ClearRightWall() {  _righttWall.SetActive(false); }
     public void ClearFrontWall() {  _FrontWall.SetActive(false); }
     public void ClearBackWall() {   _backWall.SetActive(false); }
+
+    public Transform GetLocationLeftWall() { return _leftWall.transform; }
+    public Transform GetLocationRightWall() { return _righttWall.transform; }
+    public Transform GetLocationFrontWall() { return _FrontWall.transform; }
+    public Transform GetLocationBackWall() { return _backWall.transform; }
 
     public void SetFloorMaterial(Material mat) { floorRenderer.material = mat; }
 
