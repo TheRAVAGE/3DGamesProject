@@ -9,6 +9,14 @@ public class MazeCell : MonoBehaviour
     [SerializeField] private GameObject _backWall;
     [SerializeField] private GameObject _unvisitedBlock;
     [SerializeField] private GameObject _floor;
+    [SerializeField] private GameObject _ceiling;
+
+    GroundSpawner _groundSpawner;
+    CeillingSpawner _ceillingSpawner;
+
+    private string _cellType = "Cell";
+    //RoomTypes
+    //: Hallway, ImpRoom, PlayerSpawnRoom, PlayerWinRoom, NormalRoom, EnemyRoom,
 
     MeshRenderer floorRenderer;
 
@@ -22,12 +30,25 @@ public class MazeCell : MonoBehaviour
 
     private void Awake() {
         floorRenderer = _floor.GetComponentInChildren<MeshRenderer>();
+
+
+    }
+
+    private void Start() {
+        _groundSpawner = GetComponentInChildren<GroundSpawner>();
+        _ceillingSpawner = GetComponentInChildren<CeillingSpawner>();
+
+        //Null checks
+        if (floorRenderer == null) { Debug.LogError("MazeCell: Floor MeshRenderer is null!"); }
+        if (_groundSpawner == null) { Debug.LogError("MazeCell: GroundSpawner is null!"); }
+        if (_ceillingSpawner == null) { Debug.LogError("MazeCell: CeilingSpawner is null!"); }
     }
 
     public bool isVisited { get; private set; }
 
     public void Visited() {
         isVisited = true;
+        ClearCeiling();
         _unvisitedBlock.SetActive(false);
     }
 
@@ -40,12 +61,20 @@ public class MazeCell : MonoBehaviour
     public void ClearRightWall() {  _righttWall.SetActive(false); }
     public void ClearFrontWall() {  _FrontWall.SetActive(false); }
     public void ClearBackWall() {   _backWall.SetActive(false); }
+    public void ClearCeiling() { _ceiling.SetActive(false); }
 
     public Transform GetLocationLeftWall() { return _leftWall.transform; }
     public Transform GetLocationRightWall() { return _righttWall.transform; }
     public Transform GetLocationFrontWall() { return _FrontWall.transform; }
     public Transform GetLocationBackWall() { return _backWall.transform; }
 
+    //Getters and Setters
     public void SetFloorMaterial(Material mat) { floorRenderer.material = mat; }
+
+    public void SetCellType(string type) { _cellType = type; }
+    public string GetCellType() { return _cellType; }
+
+    public Vector3 GetGroundSpawnerLocation() { return _groundSpawner.transform.position; }
+    public Vector3 GetCeilingSpawnerLocation() { return _ceillingSpawner.transform.position; }
 
 }

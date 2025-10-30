@@ -380,6 +380,7 @@ MonoBehaviour:
   _backWall: {fileID: 2173858918566166642}
   _unvisitedBlock: {fileID: 6046341910939691683}
   _floor: {fileID: 7668920031399105906}
+  _ceiling: {fileID: 6373456928925041694}
   x: 0
   y: 0
 --- !u!1 &5389391915202428278
@@ -883,7 +884,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1630014325577341083}
-  - component: {fileID: 5262393682870149427}
+  - component: {fileID: 6596052374325830169}
   m_Layer: 0
   m_Name: CeillingSpawner
   m_TagString: Untagged
@@ -906,7 +907,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7890436689227009518}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5262393682870149427
+--- !u!114 &6596052374325830169
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -915,9 +916,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7266072623489661547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d7c2db33199a134e847b80a8aa6492f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e2340a215aa4f64c85d9b026c98d61e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GroundSpawner
+  m_EditorClassIdentifier: Assembly-CSharp::CeillingSpawner
 --- !u!1 &7491159944065102537
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|c:\\users\\iamak\\onedrive - mainetti india pvt ltd\\kingston\\projects\\3dgamesproject\\assets\\scripts\\manager\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\manager\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\assets\\scripts\\maze\\mazecell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\maze\\mazecell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|c:\\users\\iamak\\onedrive - mainetti india pvt ltd\\kingston\\projects\\3dgamesproject\\assets\\scripts\\props\\spawners\\ceillingspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\props\\spawners\\ceillingspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\assets\\scripts\\maze\\mazegenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\maze\\mazegenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\assets\\scripts\\inputs\\gameinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\inputs\\gameinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|c:\\users\\iamak\\onedrive - mainetti india pvt ltd\\kingston\\projects\\3dgamesproject\\assets\\scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,18 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\assets\\scripts\\props\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\props\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\assets\\scripts\\inputs\\gameinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\inputs\\gameinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\assets\\scripts\\maze\\mazegenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\maze\\mazegenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\assets\\scripts\\maze\\mazecell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3C4DD07B-6975-54D1-CE20-AD1388DD95A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\maze\\mazecell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,11 +46,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Player\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerController.cs",
@@ -56,7 +64,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "ChaserController.cs",
               "DocumentMoniker": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Chaser\\ChaserController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Chaser\\ChaserController.cs",
@@ -68,12 +76,25 @@
               "IsPinned": true
             },
             {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CeillingSpawner.cs",
+              "DocumentMoniker": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Props\\Spawners\\CeillingSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Props\\Spawners\\CeillingSpawner.cs",
+              "ToolTip": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Props\\Spawners\\CeillingSpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Props\\Spawners\\CeillingSpawner.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T17:29:57.076Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "NodeController.cs",
               "DocumentMoniker": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Player\\NodeController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\NodeController.cs",
@@ -85,7 +106,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "Table.cs",
               "DocumentMoniker": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Props\\Table.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Props\\Table.cs",
@@ -105,31 +126,47 @@
               "RelativeToolTip": "Assets\\Scripts\\Inputs\\GameInput.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T18:55:19.338Z"
+              "WhenOpened": "2025-10-25T18:55:19.338Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "MazeGenerator.cs",
               "DocumentMoniker": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Maze\\MazeGenerator.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Maze\\MazeGenerator.cs",
               "ToolTip": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Maze\\MazeGenerator.cs",
               "RelativeToolTip": "Assets\\Scripts\\Maze\\MazeGenerator.cs",
-              "ViewState": "AgIAAKQAAAAAAAAAAAAkwMIAAABaAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAvwDsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T13:10:19.858Z"
+              "WhenOpened": "2025-10-24T13:10:19.858Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Manager\\GameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Manager\\GameManager.cs",
+              "ToolTip": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Manager\\GameManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Manager\\GameManager.cs",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAiwI4AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T13:25:45.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MazeCell.cs",
               "DocumentMoniker": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Maze\\MazeCell.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Maze\\MazeCell.cs",
               "ToolTip": "C:\\Users\\iamak\\OneDrive - Mainetti India Pvt Ltd\\Kingston\\Projects\\3DGamesProject\\Assets\\Scripts\\Maze\\MazeCell.cs",
               "RelativeToolTip": "Assets\\Scripts\\Maze\\MazeCell.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAA3wCsAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAA5wCYAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T13:03:59.933Z"
+              "WhenOpened": "2025-10-24T13:03:59.933Z",
+              "EditorCaption": ""
             }
           ]
         }

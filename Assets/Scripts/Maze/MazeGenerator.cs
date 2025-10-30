@@ -6,28 +6,38 @@ using System.Text.RegularExpressions;
 
 public class MazeGenerator : MonoBehaviour
 {
+    [Header("GameManager")]
+    [SerializeField] private GameManager _gameManager;
+
+    [Header("Map Generation")]
     [SerializeField] private MazeCell _mazeCellPrefab;
-    [SerializeField] private Material _straightLineMaterial;
-    [SerializeField] private Material _playerSpawnPointMaterial;
-    [SerializeField] private Material _playerEndPointMaterialMaterial;
-    [SerializeField] private int _mazeWidth;
-    [SerializeField] private int _mazeLength;
+    [SerializeField] private int _mazeSize = 20;
+
+    [Header("Enemy")]
+    [SerializeField] private int _minEnemyDistanceFromPlayerSpawn = 2;
 
     private MazeCell[,] _mazeGrid;
 
+    private MazeCell _startCell;
     private MazeCell _previousCellBuffer;
     private MazeCell _lastNextCell;
+    private MazeCell _lastKeyRoomCell;
+    private MazeCell _enemyRoomCell;
 
     private int _leftWallDestroyed = 0;
     private int _rightWallDestroyed = 0;
     private int _frontWallDestroyed = 0;
     private int _backWallDestroyed = 0;
+    private int _mazeWidth;
+    private int _mazeLength;
 
-    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
     {
+        _mazeLength = _mazeSize;
+        _mazeWidth = _mazeSize;
         _mazeGrid = new MazeCell[_mazeWidth, _mazeLength];
         for (int x = 0; x < _mazeWidth; x++)
         {
@@ -40,39 +50,49 @@ public class MazeGenerator : MonoBehaviour
                 _mazeGrid[x, z] = newCell;
             }
         }
-        
+        _startCell = _mazeGrid[0, 0];
+
         yield return GenerateMaze(null, null, _mazeGrid[0,0]);
-        _mazeGrid[0, 0].SetFloorMaterial(_playerSpawnPointMaterial);
-        _lastNextCell.SetFloorMaterial(_playerEndPointMaterialMaterial);
-        MazeCell _lastCell = Instantiate(_mazeCellPrefab, new Vector3(_lastNextCell.transform.localPosition.x, 0f, _lastNextCell.transform.localPosition.z), Quaternion.identity);
-        _lastCell.Visited();
+
+        //Maze Generation Complete
+        _startCell.SetCellType("PlayerSpawnRoom");
+        _mazeGrid[_mazeWidth-1, _mazeLength-1].SetCellType("PlayerWinRoom");
+
+        //Sending the map to GameManager
+        _gameManager.SetMapGenerated(true, _mazeGrid, _mazeSize);
+
     }
 
     private IEnumerator GenerateMaze (MazeCell previousCellBuffer, MazeCell previousCell, MazeCell currentCell) {
-        
-        
-        Debug.Log($"PreviousCellBuffer : {previousCellBuffer?.name ?? "null"} PreviousCell: {previousCell?.name ?? "null"} CurrentCell: {currentCell.name}");
+
+
+        //Debug.Log($"PreviousCellBuffer : {previousCellBuffer?.name ?? "null"} PreviousCell: {previousCell?.name ?? "null"} CurrentCell: {currentCell.name}");
+
         currentCell.Visited();
         ClearWalls(previousCellBuffer, previousCell, currentCell);
-        
 
-        yield return new WaitForSeconds(0.05f);
+
+        yield return new WaitForSeconds(0.01f);
+
 
         MazeCell _nextCell;
 
         do {
             _nextCell = GetNextUnvisitedCell(currentCell);
-            
+
 
             if (_nextCell != null) {
                 previousCellBuffer = previousCell;
                 _lastNextCell = _nextCell;
+                _lastKeyRoomCell = _nextCell;
                 yield return GenerateMaze(previousCellBuffer, currentCell, _nextCell);
-                
-            }
-            
-        } while (_nextCell != null);        
 
+                _lastKeyRoomCell.SetCellType("ImpRoom");
+                _gameManager.AddImpRoomToCollection(_lastKeyRoomCell);
+                Debug.Log($"ImpRoom Assigned at ({_lastKeyRoomCell.x}, {_lastKeyRoomCell.y})");
+            }
+
+        } while (_nextCell != null);
     }
 
     private MazeCell GetNextUnvisitedCell(MazeCell currentCell) {
@@ -126,21 +146,26 @@ public class MazeGenerator : MonoBehaviour
             _leftWallDestroyed++;
             _currentCellRotation = currentCell.GetLocationLeftWall().rotation.eulerAngles;
             _currentCellPosition = currentCell.GetLocationLeftWall().position;
-            Debug.Log($"Current Cell Rotation: {_currentCellRotation} and CurrentCell Position: {_currentCellPosition}");
+
+            //Debug.Log($"Current Cell Rotation: {_currentCellRotation} and CurrentCell Position: {_currentCellPosition}");
             //Replace Walls Here
 
             previousCell.ClearRightWall();
             currentCell.ClearLeftWall();
-            
+
 
             if (_leftWallDestroyed >= 2) {
-                
-                previousCellBuffer.SetFloorMaterial(_straightLineMaterial);
-                previousCell.SetFloorMaterial(_straightLineMaterial);
-                currentCell.SetFloorMaterial(_straightLineMaterial);
+
+                //previousCellBuffer.SetFloorMaterial(_straightLineMaterial);
+                //previousCell.SetFloorMaterial(_straightLineMaterial);
+                //currentCell.SetFloorMaterial(_straightLineMaterial);
+
+                previousCellBuffer.SetCellType("Hallway");
+                previousCell.SetCellType("Hallway");
+                currentCell.SetCellType("Hallway");
             }
             return;
-        } 
+        }
         if (previousCell.x > currentCell.x) {
             _leftWallDestroyed = 0;
             _frontWallDestroyed = 0;
@@ -149,7 +174,8 @@ public class MazeGenerator : MonoBehaviour
             _rightWallDestroyed++;
             _currentCellRotation = currentCell.GetLocationRightWall().rotation.eulerAngles;
             _currentCellPosition = currentCell.GetLocationRightWall().position;
-            Debug.Log($"Current Cell Rotation: {_currentCellRotation} and CurrentCell Position: {_currentCellPosition}");
+
+            //Debug.Log($"Current Cell Rotation: {_currentCellRotation} and CurrentCell Position: {_currentCellPosition}");
             //Replace Walls Here
 
             previousCell.ClearLeftWall();
@@ -157,9 +183,13 @@ public class MazeGenerator : MonoBehaviour
 
 
             if (_rightWallDestroyed >= 2) {
-                previousCellBuffer.SetFloorMaterial(_straightLineMaterial);
-                previousCell.SetFloorMaterial(_straightLineMaterial);
-                currentCell.SetFloorMaterial(_straightLineMaterial);
+                //previousCellBuffer.SetFloorMaterial(_straightLineMaterial);
+                //previousCell.SetFloorMaterial(_straightLineMaterial);
+                //currentCell.SetFloorMaterial(_straightLineMaterial);
+
+                previousCellBuffer.SetCellType("Hallway");
+                previousCell.SetCellType("Hallway");
+                currentCell.SetCellType("Hallway");
             }
             return;
         }
@@ -171,7 +201,8 @@ public class MazeGenerator : MonoBehaviour
             _backWallDestroyed++;
             _currentCellRotation = currentCell.GetLocationBackWall().rotation.eulerAngles;
             _currentCellPosition = currentCell.GetLocationBackWall().position;
-            Debug.Log($"Current Cell Rotation: {_currentCellRotation} and CurrentCell Position: {_currentCellPosition}");
+
+            //Debug.Log($"Current Cell Rotation: {_currentCellRotation} and CurrentCell Position: {_currentCellPosition}");
             //Replace Walls Here
 
 
@@ -180,9 +211,13 @@ public class MazeGenerator : MonoBehaviour
 
 
             if (_backWallDestroyed >= 2) {
-                previousCellBuffer.SetFloorMaterial(_straightLineMaterial);
-                previousCell.SetFloorMaterial(_straightLineMaterial);
-                currentCell.SetFloorMaterial(_straightLineMaterial);
+                //previousCellBuffer.SetFloorMaterial(_straightLineMaterial);
+                //previousCell.SetFloorMaterial(_straightLineMaterial);
+                //currentCell.SetFloorMaterial(_straightLineMaterial);
+
+                previousCellBuffer.SetCellType("Hallway");
+                previousCell.SetCellType("Hallway");
+                currentCell.SetCellType("Hallway");
             }
             return;
         }
@@ -194,7 +229,8 @@ public class MazeGenerator : MonoBehaviour
             _frontWallDestroyed++;
             _currentCellRotation = currentCell.GetLocationFrontWall().rotation.eulerAngles;
             _currentCellPosition = currentCell.GetLocationFrontWall().position;
-            Debug.Log($"Current Cell Rotation: {_currentCellRotation} and CurrentCell Position: {_currentCellPosition}");
+
+            //Debug.Log($"Current Cell Rotation: {_currentCellRotation} and CurrentCell Position: {_currentCellPosition}");
             //Replace Walls Here
 
 
@@ -203,18 +239,19 @@ public class MazeGenerator : MonoBehaviour
 
 
             if (_frontWallDestroyed >= 2) {
-                previousCellBuffer.SetFloorMaterial(_straightLineMaterial);
-                previousCell.SetFloorMaterial(_straightLineMaterial);
-                currentCell.SetFloorMaterial(_straightLineMaterial);
+                //previousCellBuffer.SetFloorMaterial(_straightLineMaterial);
+                //previousCell.SetFloorMaterial(_straightLineMaterial);
+                //currentCell.SetFloorMaterial(_straightLineMaterial);
+
+                previousCellBuffer.SetCellType("Hallway");
+                previousCell.SetCellType("Hallway");
+                currentCell.SetCellType("Hallway");
             }
-            
+
             return;
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //Getters and Setters
+
 }

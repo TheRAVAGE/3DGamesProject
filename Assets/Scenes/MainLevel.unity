@@ -495,6 +495,65 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &776073261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776073263}
+  - component: {fileID: 776073262}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &776073262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776073261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f38174f194bc7449518dd8553de1d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  _playerPrefab: {fileID: 8682691641380349287, guid: f7985a609eb783548a0b2f2b98de5780, type: 3}
+  _enemyPrefab: {fileID: 6746476254500968495, guid: 4544593bdfdcd4640b9068c92986aa81, type: 3}
+  _hallwayMaterial: {fileID: 2100000, guid: 4f359ef7f2a32844893724c2986ecc40, type: 2}
+  _impRoomMaterial: {fileID: 2100000, guid: a050500c7929bb0478c9d2fc74974a66, type: 2}
+  _daggerRoomMaterial: {fileID: 2100000, guid: d5dc3dd742c3b6741b420d27ff0ff7ba, type: 2}
+  _fuseRoomMaterial: {fileID: 2100000, guid: 060c4c55a8b81874ea7caa710f45760b, type: 2}
+  _keyRoomMaterial: {fileID: 2100000, guid: 46a9da82b04791b4fb464ae28856e730, type: 2}
+  _enemyRoomMaterial: {fileID: 2100000, guid: 305a556573fd06648be56194253db2e5, type: 2}
+  _playerSpawnRoomMaterial: {fileID: 2100000, guid: c7a5241ce463bea4f9589bd8005879f6, type: 2}
+  _playerWinRoomMaterial: {fileID: 2100000, guid: 38eda65f80c7e244eac02391d108df69, type: 2}
+  _normalRoomMaterial: {fileID: 2100000, guid: 0d678a0f04db2f34fbb31efdbcd359d0, type: 2}
+  _totalTableCount: 0
+  _tablePrefab: {fileID: 0}
+  _totalLightsCount: 0
+  _lightPrefab: {fileID: 0}
+--- !u!4 &776073263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776073261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.21884, y: -0, z: 10.6917}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,12 +632,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c880435903467cf469a4268ffb8ee6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MazeGenerator
+  _gameManager: {fileID: 776073262}
   _mazeCellPrefab: {fileID: 1201647503664600569, guid: 04fa7c41cdc411046b569e8c9cd6d6fb, type: 3}
-  _straightLineMaterial: {fileID: 2100000, guid: 4f359ef7f2a32844893724c2986ecc40, type: 2}
-  _playerSpawnPointMaterial: {fileID: 2100000, guid: c7a5241ce463bea4f9589bd8005879f6, type: 2}
-  _playerEndPointMaterialMaterial: {fileID: 2100000, guid: 305a556573fd06648be56194253db2e5, type: 2}
-  _mazeWidth: 20
-  _mazeLength: 20
+  _mazeSize: 20
+  _minEnemyDistanceFromPlayerSpawn: 2
 --- !u!4 &838774911
 Transform:
   m_ObjectHideFlags: 0
@@ -603,3 +660,4 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 200626354}
   - {fileID: 838774911}
+  - {fileID: 776073263}
