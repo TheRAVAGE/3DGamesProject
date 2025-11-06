@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     [Header("Node")]
     [SerializeField] private NodeController _nodePrefab;
     [SerializeField] private GameObject _nodeSpawner;
-    [SerializeField] private float _nodeGenerationDistance = 5f;
-    [SerializeField] private float _nodeGenerationInterval = 2f;
+    [SerializeField] private float _nodeGenerationDistance = 10f;
+    [SerializeField] private float _nodeGenerationInterval = 5f;
 
 
     private string _currentMovementState;
@@ -27,11 +27,15 @@ public class PlayerController : MonoBehaviour
     private float _nextNodeGenTime = 0f;
     private float _distanceToLastNode;
 
+    private int[] _inventory = new int[3] { 0, 0, 0 };
+    //0-Dagger, 1-Fuse, 2-Key
+
     //Control Variables
     Vector2 inputVector;
     float runningInput;
     Vector2 lookInput;
     float crouchInput;
+    float interactInput;
 
     Vector3 _lastNodeGenPosition;
 
@@ -118,6 +122,7 @@ public class PlayerController : MonoBehaviour
             runningInput = _gameInput.RunningInput();
             lookInput = _gameInput.LookInput();
             crouchInput = _gameInput.CrouchInput();
+            interactInput = _gameInput.InteractInput();
         } else {
             return;
         }
@@ -199,4 +204,34 @@ public class PlayerController : MonoBehaviour
     }
 
     //SETTERS AND GETTERS
+
+    public float GetInteractInput() { return interactInput; }
+
+    public void SetItemPicked(string name) {
+        //Add to inventory here
+        Debug.Log ($"Item Picked: {name}");
+        //0-Dagger, 1-Fuse, 2-Key
+        switch(name) {
+            case "Dagger":
+                _inventory[0] = 1;
+                break;
+            case "Fuse":
+                _inventory[1] = 1;
+                break;
+            case "Key":
+                _inventory[2] = 1;
+                break;
+            default:
+                Debug.Log("Invalid Item Name");
+                break;
+        }
+        for (int i = 0; i < _inventory.Length; i++) {
+            Debug.Log($"Inventory Slot {i}: {_inventory[i]}");
+        }
+    }
+
+    public void SetInventory(int index, int value) {
+        _inventory[index] = value;
+    }
+    public int[] GetInventory() { return _inventory; }
 }

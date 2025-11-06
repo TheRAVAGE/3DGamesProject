@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -21,12 +22,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Material _normalRoomMaterial;
 
     [Header("Props")]
-    [SerializeField] private int _TableCountMultiplier = 2;
+    [SerializeField] private int _TableCount = 200;
     [SerializeField] private GameObject _tablePrefab;
-    [SerializeField] private int _LightsCountMultiplier = 3;
+    [SerializeField] private int _LightsCount = 100;
     [SerializeField] private GameObject _lightPrefab;
+    [SerializeField] private int _CrouchWallCount = 50;
+    [SerializeField] private GameObject _crouchWallPrefab;
 
     private List<MazeCell> _keyRoomsCollections; //Assigned
+    private List<MazeCell> _normalRoomsCollections;
+    private List<MazeCell> _SelectedRoomsCollections;
     private MazeCell _playerSpawnRoom; //Assigned
     private MazeCell _playerWinRoom; //Assigned
     private MazeCell _enemySpawnRoom;
@@ -37,16 +42,22 @@ public class GameManager : MonoBehaviour
     private int _mazeSize = 0;
 
 
+    WinPoint _winpoint;
+
+
     private bool _isMapGenerated = false;
     private bool _isReady = false;
     private bool _isDaggerPicked = false;
     private bool _isItemSpawned = false;
+    private bool _isWinPointReady = false;
 
     MazeCell[,] _mazeGrid;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _keyRoomsCollections = new List<MazeCell>();
+        _normalRoomsCollections = new List<MazeCell>();
+        _SelectedRoomsCollections = new List<MazeCell>();
     }
 
     // Update is called once per frame
@@ -60,7 +71,12 @@ public class GameManager : MonoBehaviour
             // Trigger Fuse and Key Item Spawn
         }
     }
-    public void SetMapGenerated(bool value , MazeCell[,] maze, int size) {
+
+    public void GetMapGenerated(bool value, MazeCell[,] maze, int size)
+    {
+        StartCoroutine(SetMapGenerated(value, maze, size));
+    }
+    private IEnumerator SetMapGenerated(bool value , MazeCell[,] maze, int size) {
         _isMapGenerated = value;
         _mazeGrid = maze;
         _mazeSize = size;
@@ -78,9 +94,7 @@ public class GameManager : MonoBehaviour
                     cell.SetFloorMaterial(_playerWinRoomMaterial);
                     _playerWinRoom = cell;
                     //Spawn Win Trigger Here
-                } else if (cell.GetCellType() == "PlayerWinRoom") {
-                    cell.SetFloorMaterial(_enemyRoomMaterial);
-                    _enemySpawnRoom = cell;
+                    
                 } else if (cell.GetCellType() == "ImpRoom") {
                     // Collect key rooms
                     cell.SetFloorMaterial(_impRoomMaterial);
@@ -88,64 +102,214 @@ public class GameManager : MonoBehaviour
 
                 } else if (cell.GetCellType() == "Hallway") {
                     cell.SetFloorMaterial(_hallwayMaterial);
-                } else if (cell.GetCellType() == "NormalRoom") {
+                } else if(cell.GetCellType() == "NormalRoom") {
+                    _normalRoomsCollections.Add(cell);
                     cell.SetFloorMaterial(_normalRoomMaterial);
                 }
                 //Debug.Log($"Cell Type : {cell.GetCellType()} Key Room Collection {_keyRoomsCollections.Count}");
+                yield return new WaitForEndOfFrame();
             }
-            //Debug.Log($"Key Rooms Assigned ({_keyRoomsCollections.Count})");
+            
         }
-        AssignKeyItems();
+        
+        Debug.Log($"Key Rooms Assigned ({_keyRoomsCollections.Count})");
+        for (int i = _keyRoomsCollections.Count - 1; i >= 0; i--)
+        {
+            if (_keyRoomsCollections[i].x == _mazeSize-1 && _keyRoomsCollections[i].y == _mazeSize-1)
+            {
+                _keyRoomsCollections.Remove(_keyRoomsCollections[i]);
+                Debug.Log($"KeyRoom Removed :{_keyRoomsCollections[i].x}_{_keyRoomsCollections[i].y}");
+            }
+            
+            if (_keyRoomsCollections[i].GetCellType() != "ImpRoom")
+            {
+                Debug.Log($"KeyRoom Removed :{_keyRoomsCollections[i].x}_{_keyRoomsCollections[i].y}");
+                _keyRoomsCollections.Remove(_keyRoomsCollections[i]);
+            }
+        }
+        Debug.Log($"Normal Rooms Assigned ({_normalRoomsCollections.Count})");
+        Debug.Log($"Key Rooms Assigned ({_keyRoomsCollections.Count})");
+        StartCoroutine(AssignKeyItems());
     }
 
-    private void AssignKeyItems() {
-        // Assign Dagger Room
+    private IEnumerator AssignKeyItems()
+    {
+        float StepWaitSeconds = 0.5f;
+        
+        _daggerRoom = GetRoomGenerate( 1, "DaggerRoom", _daggerRoomMaterial);
+        yield return new WaitForSeconds(StepWaitSeconds);
+        
+        _enemySpawnRoom = GetRoomGenerate( 0, "EnemyRoom", _enemyRoomMaterial);
+        yield return new WaitForSeconds(StepWaitSeconds);
+        
+        //-1 To Randomly Generate from the Imp rooms assigned
+        _fuseRoom = GetRoomGenerate( -1, "FuseRoom", _fuseRoomMaterial);
+        yield return new WaitForSeconds(StepWaitSeconds);
+        
+        _keyRoom = GetRoomGenerate( -1, "KeyRoom", _keyRoomMaterial);
+        yield return new WaitForSeconds(StepWaitSeconds);
 
-        int _daggerRoomIndex = 1;
-        int enemyRoomIndex = 0;
-        _daggerRoom = _keyRoomsCollections[_daggerRoomIndex];
-        _enemySpawnRoom = _keyRoomsCollections[enemyRoomIndex];
+        PickCrouchWallRooms();
+        StartCoroutine(DeployCrouchWall());
+    }
 
-        Debug.Log($"Collection before Assigning DaggerRoom and enemy : {_keyRoomsCollections.Count}");
-        Debug.Log($"Dagger Room Selected at Index : {_daggerRoomIndex} ({_daggerRoom.x}, {_daggerRoom.y})");
-        Debug.Log($"Enemy Spawn Room Selected at Index : {enemyRoomIndex} ({_enemySpawnRoom.x}, {_enemySpawnRoom.y})");
+    private void PickCrouchWallRooms()
+    {
+        Debug.Log("Picking Crouch Walls");
+        Debug.Log($"PickCrouchWallRooms called. crouchCount={_CrouchWallCount}, normalRoomsCount={_normalRoomsCollections?.Count}");
+        for (int i = 0; i < _CrouchWallCount; i++)
+        {
+            int _roomIndex = Random.Range(0, _normalRoomsCollections.Count-1);
+            MazeCell _rngRoom = _normalRoomsCollections[_roomIndex];
+            if (!_SelectedRoomsCollections.Contains(_rngRoom))
+            {
+                if (_rngRoom.x > 1 && _rngRoom.y > 1)
+                {
+                    _SelectedRoomsCollections.Add(_rngRoom);
+                    Debug.Log($"{i}Room Added from Normal Room : {_roomIndex}");
+                }
+                else
+                {
+                    Debug.Log($"{i}Room didnt Match the criteria");
+                }
+                
+            }
+            else
+            {
+                Debug.Log("Picked a Room already available");
+                i--;
+            }
+            
+        }
+        
+        Debug.Log($"CrouchWalls Picked Rooms: {_SelectedRoomsCollections.Count}");
+    }
 
-        _keyRoomsCollections.Remove(_daggerRoom);
-        _keyRoomsCollections.Remove(_enemySpawnRoom);
+    private IEnumerator DeployCrouchWall()
+    {
+        //Crouch Walls Deciding Logic Here
 
-        Debug.Log($"Collection after Assigning DaggerRoom and Enemy Room : {_keyRoomsCollections.Count}");
-        _daggerRoom.SetCellType("DaggerRoom");
-        _daggerRoom.SetFloorMaterial(_daggerRoomMaterial);
-        Debug.Log($"Dagger Room Assigned at ({_daggerRoom.x}, {_daggerRoom.y}) Key Room Collection Count : {_keyRoomsCollections.Count}");
-
-        _enemySpawnRoom.SetCellType("EnemyRoom");
-        _enemySpawnRoom.SetFloorMaterial(_enemyRoomMaterial);
-        Debug.Log($"Enemy Spawn Room Assigned at ({_enemySpawnRoom.x}, {_enemySpawnRoom.y}) Key Room Collection Count : {_keyRoomsCollections.Count}");
-        // Spawn Dagger and Enemy Here
-
-        int _fuseRoomIndex = RandomNumberGenerator(_keyRoomsCollections.Count);
-        _fuseRoom = _keyRoomsCollections[_fuseRoomIndex];
-        _keyRoomsCollections.Remove(_fuseRoom);
-        _fuseRoom.SetCellType("FuseRoom");
-        _fuseRoom.SetFloorMaterial(_fuseRoomMaterial);
-        Debug.Log($"Fuse Room Assigned at ({_fuseRoom.x}, {_fuseRoom.y}) Key Room Collection Count : {_keyRoomsCollections.Count}");
-
-        int _keyRoomIndex = RandomNumberGenerator(_keyRoomsCollections.Count);
-        _keyRoom = _keyRoomsCollections[_keyRoomIndex];
-        _keyRoomsCollections.Remove(_keyRoom);
-        _keyRoom.SetCellType("KeyRoom");
-        _keyRoom.SetFloorMaterial(_keyRoomMaterial);
-        Debug.Log($"Key Room Assigned at ({_keyRoom.x}, {_keyRoom.y}) Key Room Collection Count : {_keyRoomsCollections.Count}");
-
+        foreach (MazeCell cell in _SelectedRoomsCollections)
+        {
+            if (cell.x <= 1 || cell.y <= 1 || cell.x >= 18 || cell.y >= 18)
+            {
+                continue;
+                
+            }
+            Debug.Log($"MazeCell in SelectedRooms For Crouching {cell.x}:{cell.y}");
+            List<Wall> _walls = new List<Wall>(cell.GetWalls());
+            _walls = _walls.Where(w => !w.GetIsCleared()).ToList();
+            foreach (Wall wall in _walls)
+            {
+                Debug.Log($"Remaining Wall in cell{cell.x}_{cell.y} is {wall.name} ");
+            }
+            int _rng = RandomNumberGenerator(_walls.Count);
+            Wall crouchWall = _walls[_rng];
+            MazeCell crouchCell = crouchWall.GetComponentInParent<MazeCell>();
+            if (crouchCell == null)
+            {
+                Debug.Log("Crouch Cell is Null");
+            }
+            else
+            {
+                Debug.Log($"Chosen wall is {crouchWall.name}");
+                Vector3 _currentCellRotation;
+                Vector3 _currentCellPosition;
+                Vector3 _previousCellPosition;
+                Vector3 _midPoint;
+                if (crouchWall.name == "LeftWall")
+                {
+                    MazeCell previousCell = _mazeGrid[crouchCell.x-1,crouchCell.y];
+                    
+                    _currentCellRotation = crouchCell.GetLocationLeftWall().rotation.eulerAngles;
+                    _currentCellPosition = crouchCell.GetLocationLeftWall().position;
+                    _previousCellPosition = previousCell.GetLocationRightWall().position;
+            
+                    _midPoint = (_currentCellPosition - _previousCellPosition)/2;
+                    
+                    Debug.Log($"Clearing Crouch Wall {crouchCell.x}:{crouchCell.y} & Previous Cell Wall {previousCell.x}:{previousCell.y}");
+                    crouchCell.ClearLeftWall();
+                    previousCell.ClearRightWall();
+                    Instantiate(_crouchWallPrefab, _currentCellPosition-_midPoint, Quaternion.Euler(_currentCellRotation));
+                }
+                else if (crouchWall.name == "RightWall")
+                {
+                    MazeCell previousCell = _mazeGrid[crouchCell.x+1,crouchCell.y];
+                    
+                    _currentCellRotation = crouchCell.GetLocationRightWall().rotation.eulerAngles;
+                    _currentCellPosition = crouchCell.GetLocationRightWall().position;
+                    _previousCellPosition = previousCell.GetLocationLeftWall().position;
+            
+                    _midPoint = (_currentCellPosition - _previousCellPosition)/2;
+                    
+                    Debug.Log($"Clearing Crouch Wall {crouchCell.x}:{crouchCell.y} & Previous Cell Wall {previousCell.x}:{previousCell.y}");
+                    crouchCell.ClearRightWall();
+                    previousCell.ClearLeftWall();
+                    Instantiate(_crouchWallPrefab, _currentCellPosition-_midPoint, Quaternion.Euler(_currentCellRotation));
+                } else if (crouchWall.name == "FrontWall")
+                {
+                    MazeCell previousCell = _mazeGrid[crouchCell.x,crouchCell.y+1];
+                    
+                    _currentCellRotation = crouchCell.GetLocationFrontWall().rotation.eulerAngles;
+                    _currentCellPosition = crouchCell.GetLocationFrontWall().position;
+                    _previousCellPosition = previousCell.GetLocationBackWall().position;
+            
+                    _midPoint = (_currentCellPosition - _previousCellPosition)/2;
+                    
+                    Debug.Log($"Clearing Crouch Wall {crouchCell.x}:{crouchCell.y} & Previous Cell Wall {previousCell.x}:{previousCell.y}");
+                    crouchCell.ClearFrontWall();
+                    previousCell.ClearBackWall();
+                    Instantiate(_crouchWallPrefab, _currentCellPosition-_midPoint, Quaternion.Euler(_currentCellRotation));
+                } else if (crouchWall.name == "BackWall")
+                {
+                    MazeCell previousCell = _mazeGrid[crouchCell.x,crouchCell.y-1];
+                    
+                    _currentCellRotation = crouchCell.GetLocationBackWall().rotation.eulerAngles;
+                    _currentCellPosition = crouchCell.GetLocationBackWall().position;
+                    _previousCellPosition = previousCell.GetLocationFrontWall().position;
+            
+                    _midPoint = (_currentCellPosition - _previousCellPosition)/2;
+                    
+                    Debug.Log($"Clearing Crouch Wall {crouchCell.x}:{crouchCell.y} & Previous Cell Wall {previousCell.x}:{previousCell.y}");
+                    crouchCell.ClearBackWall();
+                    previousCell.ClearFrontWall();
+                    Instantiate(_crouchWallPrefab, _currentCellPosition-_midPoint, Quaternion.Euler(_currentCellRotation));
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        Debug.Log("CrouchWalls Deployed");
         AssignLightsAndTables();
     }
 
     private void AssignLightsAndTables() {
-
+        //Assign Tables and Lights Here
+        Debug.Log("Assigning Tables and Lights Deployed");
     }
 
     private int RandomNumberGenerator(int maxValue) {
-        return Random.Range(0,maxValue);
+        return Random.Range(0,maxValue-1);
+    }
+
+    private MazeCell GetRoomGenerate(int index,string roomName, Material roomMaterial)
+    {
+        int _roomIndex;
+        if (index == -1)
+        {
+            _roomIndex = RandomNumberGenerator(_keyRoomsCollections.Count);
+        }
+        else
+        {
+            _roomIndex = index;
+        }
+        MazeCell _room = _keyRoomsCollections[_roomIndex];
+        _keyRoomsCollections.Remove(_room);
+        Debug.Log($"Room Index : {_roomIndex} & Remaining Rooms {_keyRoomsCollections.Count}");
+        _room.SetCellType(roomName);
+        _room.SetFloorMaterial(roomMaterial);
+        Debug.Log($"{roomName} Assigned at ({_room.x}, {_room.y}) Key Room Collection Count : {_keyRoomsCollections.Count}");
+        return _room;
     }
 
     public void AddImpRoomToCollection(MazeCell cell) {
@@ -155,4 +319,6 @@ public class GameManager : MonoBehaviour
     public void TriggerDaggerPicked() {
         _isDaggerPicked = true;
     }
+
+
 }

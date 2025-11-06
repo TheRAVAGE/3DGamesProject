@@ -277,6 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1362103545318771057}
   - component: {fileID: 7539641347254698669}
+  - component: {fileID: 511363743923953833}
   m_Layer: 0
   m_Name: BackWall
   m_TagString: Wall
@@ -321,6 +322,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.2, y: 1, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &511363743923953833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2173858918566166642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8264c6b0a3484e54f80525d947bf39cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wall
+  wallName: 
+  isCleared: 0
 --- !u!1 &2334020804773019139
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,10 +389,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102db41e92ec5cd4999453d7511a8a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MazeCell
-  _leftWall: {fileID: 6338093133929227186}
-  _righttWall: {fileID: 5779112699228176788}
-  _FrontWall: {fileID: 5576921363936385585}
-  _backWall: {fileID: 2173858918566166642}
+  _leftWall: {fileID: 7217237222236885255}
+  _rightWall: {fileID: 3883532957981716298}
+  _frontWall: {fileID: 6474356470227702766}
+  _backWall: {fileID: 511363743923953833}
   _unvisitedBlock: {fileID: 6046341910939691683}
   _floor: {fileID: 7668920031399105906}
   _ceiling: {fileID: 6373456928925041694}
@@ -436,7 +451,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
-  m_MotionVectors: 1
+  m_MotionVectors: 0
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
@@ -482,6 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7649518857110965169}
   - component: {fileID: 4675524779119813052}
+  - component: {fileID: 6474356470227702766}
   m_Layer: 0
   m_Name: FrontWall
   m_TagString: Wall
@@ -526,6 +542,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.2, y: 1, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6474356470227702766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5576921363936385585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8264c6b0a3484e54f80525d947bf39cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wall
+  wallName: 
+  isCleared: 0
 --- !u!1 &5779112699228176788
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3500208992913446986}
   - component: {fileID: 8216605782518939097}
+  - component: {fileID: 3883532957981716298}
   m_Layer: 0
   m_Name: RightWall
   m_TagString: Wall
@@ -580,6 +611,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.2, y: 1, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3883532957981716298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5779112699228176788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8264c6b0a3484e54f80525d947bf39cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wall
+  wallName: 
+  isCleared: 0
 --- !u!1 &6046341910939691683
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1226289482000838157}
   - component: {fileID: 1876929342869880202}
+  - component: {fileID: 7217237222236885255}
   m_Layer: 0
   m_Name: LeftWall
   m_TagString: Wall
@@ -777,6 +823,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.2, y: 1, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7217237222236885255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6338093133929227186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8264c6b0a3484e54f80525d947bf39cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wall
+  wallName: 
+  isCleared: 0
 --- !u!1 &6373456928925041694
 GameObject:
   m_ObjectHideFlags: 0

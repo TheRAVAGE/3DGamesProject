@@ -3,16 +3,18 @@ using UnityEngine;
 public class MazeCell : MonoBehaviour
 {
     [Header("Maze Objects")]
-    [SerializeField] private GameObject _leftWall;
-    [SerializeField] private GameObject _righttWall;
-    [SerializeField] private GameObject _FrontWall;
-    [SerializeField] private GameObject _backWall;
+    [SerializeField] private Wall _leftWall;
+    [SerializeField] private Wall _rightWall;
+    [SerializeField] private Wall _frontWall;
+    [SerializeField] private Wall _backWall;
     [SerializeField] private GameObject _unvisitedBlock;
     [SerializeField] private GameObject _floor;
     [SerializeField] private GameObject _ceiling;
 
     GroundSpawner _groundSpawner;
     CeillingSpawner _ceillingSpawner;
+
+    private Wall[] _walls;
 
     private string _cellType = "Cell";
     //RoomTypes
@@ -26,12 +28,20 @@ public class MazeCell : MonoBehaviour
    MazeCell (int x, int y) {
         this.x = x;
         this.y = y;
-    }
+        _leftWall.wallName = "LeftWall";
+        _leftWall.isCleared = false;
+        _rightWall.wallName = "RightWall";
+        _rightWall.isCleared = false;
+        _frontWall.wallName = "FrontWall";
+        _frontWall.isCleared = false;
+        _backWall.wallName = "BackWall";
+        _backWall.isCleared = false;
+
+   }
 
     private void Awake() {
         floorRenderer = _floor.GetComponentInChildren<MeshRenderer>();
-
-
+        _walls = new Wall[4] {_leftWall,_rightWall,_frontWall, _backWall};
     }
 
     private void Start() {
@@ -57,15 +67,53 @@ public class MazeCell : MonoBehaviour
         _unvisitedBlock.SetActive(true);
     }
 
-    public void ClearLeftWall() {   _leftWall.SetActive(false);    }
-    public void ClearRightWall() {  _righttWall.SetActive(false); }
-    public void ClearFrontWall() {  _FrontWall.SetActive(false); }
-    public void ClearBackWall() {   _backWall.SetActive(false); }
+    public void ClearLeftWall()
+    {
+        _leftWall.gameObject.SetActive(false);
+        _leftWall.GetComponent<Wall>().SetIsCleared(true);
+    }
+
+    public void ClearRightWall()
+    {
+        _rightWall.gameObject.SetActive(false);
+        _rightWall.GetComponent<Wall>().SetIsCleared(true);
+    }
+
+    public void ClearFrontWall()
+    {
+        _frontWall.gameObject.SetActive(false);
+        _frontWall.GetComponent<Wall>().SetIsCleared(true);
+    }
+
+    public void ClearBackWall()
+    {
+        _backWall.gameObject.SetActive(false);
+        _backWall.GetComponent<Wall>().SetIsCleared(true);
+    }
+    public void SetClearLeftWall()
+    {
+        _leftWall.GetComponent<Wall>().SetIsCleared(true);
+    }
+
+    public void SetClearRightWall()
+    {
+        _rightWall.GetComponent<Wall>().SetIsCleared(true);
+    }
+
+    public void SetClearFrontWall()
+    {
+        _frontWall.GetComponent<Wall>().SetIsCleared(true);
+    }
+
+    public void SetClearBackWall()
+    {
+        _backWall.GetComponent<Wall>().SetIsCleared(true);
+    }
     public void ClearCeiling() { _ceiling.SetActive(false); }
 
     public Transform GetLocationLeftWall() { return _leftWall.transform; }
-    public Transform GetLocationRightWall() { return _righttWall.transform; }
-    public Transform GetLocationFrontWall() { return _FrontWall.transform; }
+    public Transform GetLocationRightWall() { return _rightWall.transform; }
+    public Transform GetLocationFrontWall() { return _frontWall.transform; }
     public Transform GetLocationBackWall() { return _backWall.transform; }
 
     //Getters and Setters
@@ -74,7 +122,12 @@ public class MazeCell : MonoBehaviour
     public void SetCellType(string type) { _cellType = type; }
     public string GetCellType() { return _cellType; }
 
-    public Vector3 GetGroundSpawnerLocation() { return _groundSpawner.transform.position; }
-    public Vector3 GetCeilingSpawnerLocation() { return _ceillingSpawner.transform.position; }
+    public Transform GetGroundSpawnerLocation() { return _groundSpawner.transform; }
+    public Transform GetCeilingSpawnerLocation() { return _ceillingSpawner.transform; }
+
+    public Wall[] GetWalls()
+    {
+        return _walls;
+    }
 
 }

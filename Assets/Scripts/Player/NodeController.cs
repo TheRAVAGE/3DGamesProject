@@ -8,7 +8,7 @@ public class NodeController : MonoBehaviour
 
     [Header("Node Settings")]
     [SerializeField] private float _tickRate = 1f;
-    [SerializeField] private float _tickAmount = 10.0f;
+    [SerializeField] private float _tickAmount = 1.0f;
     [SerializeField] private float _reward = 100.0f;
 
     private float _SpawnedTime;
@@ -25,7 +25,7 @@ public class NodeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time == _nextTickTime) {
+        if (Time.time >= _nextTickTime) {
             _nextTickTime += _tickRate;
             _reward -= _tickAmount;
         }

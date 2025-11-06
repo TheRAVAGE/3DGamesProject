@@ -230,7 +230,7 @@ Transform:
   m_GameObject: {fileID: 2439388310033264357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.79, y: 0.95, z: 0}
+  m_LocalPosition: {x: 0.79, y: 2.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -636,8 +636,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _isInputEnabled: 1
-  _walkMaxSpeed: 11
-  _runMaxSpeed: 20
+  _walkMaxSpeed: 15
+  _runMaxSpeed: 25
   _acceleration: 15
   _mouseSensitivity: 50
   _nodePrefab: {fileID: 2168562362322522877, guid: c19474e1f6f28a34eb15be0c4784a612, type: 3}

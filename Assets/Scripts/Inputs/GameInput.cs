@@ -28,7 +28,10 @@ public class GameInput : MonoBehaviour
     }
 
     public float CrouchInput() {
-               return _playerInputActions.Player.Crouch.ReadValue<float>();
+        return _playerInputActions.Player.Crouch.ReadValue<float>();
+    }
+    public float InteractInput() {
+        return _playerInputActions.Player.Interact.ReadValue<float>();
     }
 
 }

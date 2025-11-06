@@ -535,10 +535,12 @@ MonoBehaviour:
   _playerSpawnRoomMaterial: {fileID: 2100000, guid: c7a5241ce463bea4f9589bd8005879f6, type: 2}
   _playerWinRoomMaterial: {fileID: 2100000, guid: 38eda65f80c7e244eac02391d108df69, type: 2}
   _normalRoomMaterial: {fileID: 2100000, guid: 0d678a0f04db2f34fbb31efdbcd359d0, type: 2}
-  _totalTableCount: 0
+  _TableCount: 200
   _tablePrefab: {fileID: 0}
-  _totalLightsCount: 0
+  _LightsCount: 100
   _lightPrefab: {fileID: 0}
+  _CrouchWallCount: 50
+  _crouchWallPrefab: {fileID: 5758789615118693098, guid: 7a9ef5bfa33188c4691b59d6dc0f2c8f, type: 3}
 --- !u!4 &776073263
 Transform:
   m_ObjectHideFlags: 0
@@ -635,6 +637,7 @@ MonoBehaviour:
   _gameManager: {fileID: 776073262}
   _mazeCellPrefab: {fileID: 1201647503664600569, guid: 04fa7c41cdc411046b569e8c9cd6d6fb, type: 3}
   _mazeSize: 20
+  _doorPrefab: {fileID: 4532860998635025325, guid: 0c43667c32b76d747a6b72857771eb7f, type: 3}
   _minEnemyDistanceFromPlayerSpawn: 2
 --- !u!4 &838774911
 Transform:

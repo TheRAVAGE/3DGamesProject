@@ -343,8 +343,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaserController
   _isInputEnabled: 0
-  _walkMaxSpeed: 10
-  _runMaxSpeed: 22
+  _walkMaxSpeed: 15
+  _runMaxSpeed: 26
   _acceleration: 15
   _mouseSensitivity: 50
 --- !u!54 &2586738697134534669
